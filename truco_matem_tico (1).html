@@ -1,0 +1,92 @@
+<!-- ... existing code ... -->
+        <!-- Action Header Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-6 bg-emerald-950/80 p-4 rounded-2xl border border-emerald-800/50 shadow-xl backdrop-blur">
+            <div class="flex items-center space-x-3">
+                <button onclick="startNewGame()" class="bg-amber-600 hover:bg-amber-500 text-white font-bold py-2 px-4 rounded-xl shadow transition transform hover:scale-105 active:scale-95 text-xs sm:text-sm flex items-center space-x-1">
+                    <span>🔄</span> <span>Novo Jogo (Vs BOT)</span>
+                </button>
+                <button onclick="openMultiplayerModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded-xl shadow transition transform hover:scale-105 active:scale-95 text-xs sm:text-sm flex items-center space-x-1 animate-pulse">
+                    <span>🌐</span> <span>Jogar com Amigo (Online)</span>
+                </button>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <button onclick="toggleGithubModal()" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-amber-300 font-bold py-2 px-3 rounded-xl shadow transition text-xs flex items-center space-x-1">
+                    <span>🚀</span> <span>Como Publicar no GitHub</span>
+                </button>
+                <button onclick="toggleModal('rules-modal')" class="bg-emerald-800 hover:bg-emerald-700 text-emerald-100 font-bold py-2 px-3 rounded-xl shadow transition text-xs">
+                    ❓ Regras & Naipes
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Game Table -->
+<!-- ... existing code ... -->
+    <!-- Rules & Math Suit Legend Modal -->
+    <div id="rules-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-gray-900 border border-emerald-600/40 rounded-2xl max-w-lg w-full p-6 text-slate-100 max-h-[90vh] overflow-y-auto shadow-2xl relative">
+            <button onclick="toggleModal('rules-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+            <h3 class="text-xl font-bold text-amber-400 mb-4 text-center">Regras do Truco Matemático</h3>
+            
+            <div class="space-y-4 text-sm">
+                <div>
+                    <h4 class="font-bold text-emerald-400 mb-2">Símbolos dos Naipes Operacionais:</h4>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="p-2 bg-gray-800 rounded-lg flex items-center gap-2">
+                            <span class="text-xl font-black text-blue-400">x</span> 
+                            <span>Paus (Força 4)</span>
+                        </div>
+                        <div class="p-2 bg-gray-800 rounded-lg flex items-center gap-2">
+                            <span class="text-xl font-black text-rose-500">+</span> 
+                            <span>Copas (Força 3)</span>
+                        </div>
+                        <div class="p-2 bg-gray-800 rounded-lg flex items-center gap-2">
+                            <span class="text-xl font-black text-purple-400">÷</span> 
+                            <span>Espadas (Força 2)</span>
+                        </div>
+                        <div class="p-2 bg-gray-800 rounded-lg flex items-center gap-2">
+                            <span class="text-xl font-black text-amber-400">-</span> 
+                            <span>Ouros (Força 1)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    Aguarde cerca de 1 a 2 minutos. O link oficial do seu jogo será gerado no padrão:
+                    <div class="mt-2 bg-slate-950 p-2 rounded-lg font-mono text-emerald-400 break-all text-center">
+                        https://seu-usuario.github.io/truco-matematico/
+                    </div>
+                </li>
+            </ol>
+
+            <div class="mt-5 text-center">
+                <button onclick="toggleGithubModal()" class="bg-amber-600 hover:bg-amber-500 font-bold px-6 py-2 rounded-xl text-xs text-white transition">Entendi!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Game Logic -->
+    <script>
+        // Define global modal helper functions immediately and cleanly
+        window.toggleModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.toggle('hidden');
+        };
+
+        window.toggleGithubModal = function() {
+            window.toggleModal('github-modal');
+        };
+
+        window.openMultiplayerModal = function() {
+            window.toggleModal('multiplayer-modal');
+        };
+
+        // --- Game State Variables ---
+        const SUITS = [
+            { symbol: '-', name: 'Ouros', color: 'suit-ouros', power: 1 },
+            { symbol: '÷', name: 'Espadas', color: 'suit-espadas', power: 2 },
+            { symbol: '+', name: 'Copas', color: 'suit-copas', power: 3 },
+            { symbol: 'x', name: 'Paus', color: 'suit-paus', power: 4 }
+        ];
+
+        const RANKS = [
